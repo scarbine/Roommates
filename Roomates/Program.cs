@@ -17,6 +17,7 @@ namespace Roomates
         static void Main(string[] args)
         {
             RoomRepository roomRepo = new RoomRepository(CONNECTION_STRING);
+            ChoreRepository choreRepo = new ChoreRepository(CONNECTION_STRING);
            
             bool runProgram = true;
             while (runProgram)
