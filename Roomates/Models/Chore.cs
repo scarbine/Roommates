@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Roomates.Models
 {
-    class Chore
+    public class Chore
     {
             public int Id { get; set; }
             public string Name { get; set; }
-        }
     }
+}
 
-}
-}
+
