@@ -18,6 +18,7 @@ namespace Roomates
         {
             RoomRepository roomRepo = new RoomRepository(CONNECTION_STRING);
             ChoreRepository choreRepo = new ChoreRepository(CONNECTION_STRING);
+            RoomateRepository roommmateRepo = new RoomateRepository(CONNECTION_STRING);
            
             bool runProgram = true;
             while (runProgram)
@@ -66,11 +67,48 @@ namespace Roomates
                         Console.ReadKey();
                         break;
 
+                    case ("Add chore"):
+                        Console.WriteLine("Chore Name:");
+                        string choreName = Console.ReadLine();
+
+                        Chore addChore = new Chore()
+                        {
+                            Name = choreName,
+
+                        };
+
+                        choreRepo.Insert(addChore);
+                        Console.WriteLine("Please press any key to continue");
+                        Console.ReadKey();
+                        break;
+
                     case ("Show all chores"):
                         List<Chore> chores = choreRepo.GetAll();
                         foreach (Chore c in chores)
                         {
                             Console.WriteLine($"{c.Name} has an Id of {c.Id}");
+                        }
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
+                        break;
+
+                    case ("Search for chore"):
+                        Console.WriteLine("Chore Id: ");
+                        int choreId = int.Parse(Console.ReadLine());
+
+                        Chore chore = choreRepo.GetById(choreId);
+
+                        Console.WriteLine($"{chore.Name} has and Id of {chore.Id}.");
+                        Console.WriteLine($"Press any key to continue.");
+                        Console.ReadKey();
+                        break;
+
+                    case ("Show all roommates"):
+                        List<Roomate> roomate = roommmateRepo.GetAll();
+                        foreach (Roomate r in roomate)
+                        {
+                            Console.WriteLine($"{r.FirstName} {r.LastName} is id number {r.Id} and pays {r.RentPortion} of the rent.");
+
                         }
                         Console.WriteLine("Press any key to continue");
                         Console.ReadKey();
@@ -95,6 +133,9 @@ namespace Roomates
                 "Search for room",
                 "Add a room",
                 "Show all chores",
+                "Add chore",
+                "Search for chore",
+                "Show all roommates",
                 "Exit"
             };
 

@@ -52,7 +52,7 @@ namespace Roomates.Repositories
                 conn.Open();
                 using(SqlCommand cmd =conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Name WHERE Id = @id";
+                    cmd.CommandText = "SELECT Name FROM Chore WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -82,7 +82,6 @@ namespace Roomates.Repositories
                     cmd.CommandText = @"INSERT INTO Chore (NAME) OUTPUT INSERTED.Id VALUES (@name)";
                     cmd.Parameters.AddWithValue("@name", chore.Name);
                     int id = (int)cmd.ExecuteScalar();
-
                     chore.Id = id;
                     
                 }
