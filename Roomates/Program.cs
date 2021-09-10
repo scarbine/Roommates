@@ -66,6 +66,16 @@ namespace Roomates
                         Console.ReadKey();
                         break;
 
+                    case ("Show all chores"):
+                        List<Chore> chores = choreRepo.GetAll();
+                        foreach (Chore c in chores)
+                        {
+                            Console.WriteLine($"{c.Name} has an Id of {c.Id}");
+                        }
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
+                        break;
+
                     case ("Exit"):
                         runProgram = false;
                         break;
@@ -84,6 +94,7 @@ namespace Roomates
                 "Show all rooms",
                 "Search for room",
                 "Add a room",
+                "Show all chores",
                 "Exit"
             };
 
