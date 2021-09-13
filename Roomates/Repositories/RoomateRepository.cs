@@ -17,7 +17,7 @@ namespace Roomates.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT rm.Id, rm.FirstName, rm.LastName, rm.RentPortion, rm.MovedInDate,r.MaxOccupancy,r.Id, r.Name  FROM Roomate rm JOIN Room r ON  rm.roomId = r.Id";
+                    cmd.CommandText = "SELECT rm.Id, rm.FirstName, rm.LastName, rm.RentPortion, rm.MoveInDate,r.MaxOccupancy,r.Id, r.Name  FROM Roommate rm JOIN Room r ON  rm.roomId = r.Id";
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     List<Roomate> roomates = new List<Roomate>();
@@ -56,7 +56,7 @@ namespace Roomates.Repositories
                             FirstName = firstName,
                             LastName = Lastname,
                             RentPortion = rentPortion,
-                            MovedInDate = moveInDate,
+                            MoveInDate = moveInDate,
                             Room = new Room(){
                                 Id = roomId,
                                 Name = roomName,

@@ -12,7 +12,7 @@ namespace Roomates.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int RentPortion { get; set; }
-        public DateTime MovedInDate { get; set; }
+        public DateTime MoveInDate { get; set; }
         public Room Room { get; set; }
 
 
