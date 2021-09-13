@@ -119,7 +119,7 @@ namespace Roomates
                         List<Room> roomOptions = roomRepo.GetAll();
                         foreach (Room r in roomOptions)
                         {
-                            Console.WriteLine($" {r.Id} - {r.Name} MAx Occupancy({r.MaxOccupancy})");
+                            Console.WriteLine($" {r.Id} - {r.Name} Max Occupancy({r.MaxOccupancy})");
                         }
 
                         Console.WriteLine("Which room woould you like to update?");
@@ -136,9 +136,25 @@ namespace Roomates
 
                         Console.WriteLine("Room has been sucessfully updated");
                         Console.WriteLine("Press any key to continue...");
-                        Console.ReadLine();
+                        Console.ReadKey();
                         
                         break;
+
+                    case ("Delete Room"):
+                        List<Room> rOptions = roomRepo.GetAll();
+                       foreach ( Room r in rOptions)
+                       {
+                           Console.WriteLine($"{r.Id} - {r.Name} Max Occupancy : {r.MaxOccupancy}");
+                       }
+                       Console.Write("Which room would you like to delete?");
+                       selectedRoomId = int.Parse(Console.ReadLine());
+
+                       roomRepo.Delete(selectedRoomId);
+
+                       Console.WriteLine("The Room has been sucessfully deleted.");
+                       Console.WriteLine("Please press any key to continue...");
+                       Console.ReadKey();
+                       break;
 
 
                     case ("Exit"):
@@ -164,6 +180,7 @@ namespace Roomates
                 "Search for chore",
                 "Show all roommates",
                 "Update a Room",
+                "Delete Room",
                 "Exit"
             };
 
