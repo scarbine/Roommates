@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Roomates.Repositories;
 using Roomates.Models;
 
@@ -17,6 +18,8 @@ namespace Roomates
         static void Main(string[] args)
         {
             RoomRepository roomRepo = new RoomRepository(CONNECTION_STRING);
+            ChoreRepository choreRepo = new ChoreRepository(CONNECTION_STRING);
+            RoomateRepository roommmateRepo = new RoomateRepository(CONNECTION_STRING);
            
             bool runProgram = true;
             while (runProgram)
@@ -65,6 +68,95 @@ namespace Roomates
                         Console.ReadKey();
                         break;
 
+                    case ("Add chore"):
+                        Console.WriteLine("Chore Name:");
+                        string choreName = Console.ReadLine();
+
+                        Chore addChore = new Chore()
+                        {
+                            Name = choreName,
+
+                        };
+
+                        choreRepo.Insert(addChore);
+                        Console.WriteLine("Please press any key to continue");
+                        Console.ReadKey();
+                        break;
+
+                    case ("Show all chores"):
+                        List<Chore> chores = choreRepo.GetAll();
+                        foreach (Chore c in chores)
+                        {
+                            Console.WriteLine($"{c.Name} has an Id of {c.Id}");
+                        }
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
+                        break;
+
+                    case ("Search for chore"):
+                        Console.WriteLine("Chore Id: ");
+                        int choreId = int.Parse(Console.ReadLine());
+
+                        Chore chore = choreRepo.GetById(choreId);
+
+                        Console.WriteLine($"{chore.Name} has and Id of {chore.Id}.");
+                        Console.WriteLine($"Press any key to continue.");
+                        Console.ReadKey();
+                        break;
+
+                    case ("Show all roommates"):
+                        List<Roomate> roomate = roommmateRepo.GetAll();
+                        foreach (Roomate r in roomate)
+                        {
+                            Console.WriteLine($"{r.FirstName} {r.LastName} is id number {r.Id} and pays {r.RentPortion} of the rent.");
+
+                        }
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
+                        break;
+
+                    case ("Update a Room"):
+                        List<Room> roomOptions = roomRepo.GetAll();
+                        foreach (Room r in roomOptions)
+                        {
+                            Console.WriteLine($" {r.Id} - {r.Name} Max Occupancy({r.MaxOccupancy})");
+                        }
+
+                        Console.WriteLine("Which room woould you like to update?");
+                        int selectedRoomId = int.Parse(Console.ReadLine());
+                        Room selectedRoom = roomOptions.FirstOrDefault(roomOptions=> roomOptions.Id == selectedRoomId);
+
+                        Console.Write("New Name: ");
+                        selectedRoom.Name = Console.ReadLine();
+
+                        Console.Write("New Max Occupancy: ");
+                        selectedRoom.MaxOccupancy = int.Parse(Console.ReadLine());
+
+                        roomRepo.Update(selectedRoom);
+
+                        Console.WriteLine("Room has been sucessfully updated");
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
+                        
+                        break;
+
+                    case ("Delete Room"):
+                        List<Room> rOptions = roomRepo.GetAll();
+                       foreach ( Room r in rOptions)
+                       {
+                           Console.WriteLine($"{r.Id} - {r.Name} Max Occupancy : {r.MaxOccupancy}");
+                       }
+                       Console.Write("Which room would you like to delete?");
+                       selectedRoomId = int.Parse(Console.ReadLine());
+
+                       roomRepo.Delete(selectedRoomId);
+
+                       Console.WriteLine("The Room has been sucessfully deleted.");
+                       Console.WriteLine("Please press any key to continue...");
+                       Console.ReadKey();
+                       break;
+
+
                     case ("Exit"):
                         runProgram = false;
                         break;
@@ -83,6 +175,12 @@ namespace Roomates
                 "Show all rooms",
                 "Search for room",
                 "Add a room",
+                "Show all chores",
+                "Add chore",
+                "Search for chore",
+                "Show all roommates",
+                "Update a Room",
+                "Delete Room",
                 "Exit"
             };
 
