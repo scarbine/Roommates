@@ -156,6 +156,46 @@ namespace Roomates
                        Console.ReadKey();
                        break;
 
+                    case ("Update a Chore"):
+                        List<Chore> cOPtions = choreRepo.GetAll();
+
+                        foreach(Chore c in cOPtions)
+                        {
+                            Console.WriteLine($"{c.Id} - {c.Name}");
+                        }
+
+                        Console.Write("Which chore would you like to update?");
+                        int selectedChoreId = int.Parse(Console.ReadLine());
+                        Chore selectedChore = cOPtions.FirstOrDefault(c => c.Id == selectedChoreId);
+
+                        Console.Write("New Name: ");
+                        selectedChore.Name = Console.ReadLine();
+
+                        choreRepo.Update(selectedChore);
+
+                        Console.WriteLine("Chore has been sucessfully updated");
+                        Console.WriteLine("Please press any key to continue");
+                        Console.ReadKey();
+                        break;
+
+                    case ("Delete Chore"):
+                        List<Chore> choreOptions = choreRepo.GetAll();
+
+                        foreach (Chore c in choreOptions)
+                        {
+                            Console.WriteLine($"{c.Id} - {c.Name}");
+                        }
+                        Console.WriteLine("Which chore would you like to delete?");
+                        selectedChoreId = int.Parse(Console.ReadLine());
+                        choreRepo.Delete(selectedChoreId);
+
+                        Console.WriteLine("The chore has been deleted.");
+                        Console.WriteLine("Please press any ket to continue.");
+                        Console.ReadKey();
+
+                        break;
+
+
 
                     case ("Exit"):
                         runProgram = false;
@@ -181,6 +221,8 @@ namespace Roomates
                 "Show all roommates",
                 "Update a Room",
                 "Delete Room",
+                "Update a Chore",
+                "Delete Chore",
                 "Exit"
             };
 
