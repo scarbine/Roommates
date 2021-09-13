@@ -14,9 +14,10 @@ namespace Roomates.Repositories
         {
             using (SqlConnection conn = Connection)
             {
+                conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, FirstName, LastName, RentPortion, MovedInDate, Room FROM Roomate rm LEFT JOIN Room r on rm.RoomId = r.id";
+                    cmd.CommandText = "SELECT rm.Id, rm.FirstName, rm.LastName, rm.RentPortion, rm.MovedInDate,r.MaxOccupancy,r.Id, r.Name  FROM Roomate rm JOIN Room r ON  rm.roomId = r.Id";
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     List<Roomate> roomates = new List<Roomate>();
@@ -32,24 +33,22 @@ namespace Roomates.Repositories
                         int lastnameColumnPosition = reader.GetOrdinal("LastName");
                         string Lastname = reader.GetString(lastnameColumnPosition);
 
-                        int rentPortionPosition = reader.GetOrdinal("Id");
+                        int rentPortionPosition = reader.GetOrdinal("RentPortion");
                         int rentPortion = reader.GetInt32(rentPortionPosition);
 
                         int moveInDatePosition = reader.GetOrdinal("MoveInDate");
                          var moveInDate = reader.GetDateTime(moveInDatePosition);
 
-                        int roomNamePosition = reader.GetOrdinal("r.Name");
-                        string roomName = reader.GetString(roomNamePosition);
+                         int roomIdPosition = reader.GetOrdinal("Id");
+                         int roomId = reader.GetInt32(roomIdPosition);
 
-                        int idRoomCollumnPosition = reader.GetOrdinal("Id");
-                        int roomId = reader.GetInt16(idRoomCollumnPosition);
+                         int maxOccPosition = reader.GetOrdinal("MaxOccupancy");
+                         int maxOcc = reader.GetInt32(roomIdPosition);
 
-                        int MaxOccupancyPosition = reader.GetOrdinal("r.MaxOccupancy");
-                        int maxOcc = reader.GetInt16(MaxOccupancyPosition);
-                        
+                         int roomNamePosition = reader.GetOrdinal("Name");
+                         string roomName = reader.GetString(roomNamePosition);
 
-
-
+                       
 
                         Roomate roomate = new Roomate
                         {
@@ -58,11 +57,10 @@ namespace Roomates.Repositories
                             LastName = Lastname,
                             RentPortion = rentPortion,
                             MovedInDate = moveInDate,
-                            Room = new Room
-                            {
+                            Room = new Room(){
                                 Id = roomId,
-                                Name = roomName,  
-                                MaxOccupancy = maxOcc,
+                                Name = roomName,
+                                MaxOccupancy = maxOcc
                             }
 
 

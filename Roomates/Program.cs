@@ -195,6 +195,32 @@ namespace Roomates
 
                         break;
 
+                    case ("Assign a Chore"):
+                        List<Chore> allChores = choreRepo.GetAll();
+                        List<Roomate> allRoomates = roommmateRepo.GetAll();
+
+                        foreach( Chore c in allChores)
+                        {
+                            Console.WriteLine($"{c.Id} - {c.Name}");
+                        }
+                        Console.Write("Which chore would you like to assign?");
+                        int choreChoice = int.Parse(Console.ReadLine());
+
+                        foreach(Roomate r in allRoomates)
+                        {
+                            Console.WriteLine($"{r.Id} - {r.FirstName} {r.LastName}");
+                        }
+                        Console.Write("Which roomate would you like to assign this chore to?");
+                        int chosenRoomate = int.Parse(Console.ReadLine());
+
+                        choreRepo.AssignChore(chosenRoomate, choreChoice);
+
+                        Console.WriteLine("The chore has been assigned!");
+                        Console.WriteLine("Please press any key to continue...");
+                        Console.ReadKey();
+
+                        break;
+
 
 
                     case ("Exit"):
@@ -223,6 +249,7 @@ namespace Roomates
                 "Delete Room",
                 "Update a Chore",
                 "Delete Chore",
+                "Assign a Chore",
                 "Exit"
             };
 

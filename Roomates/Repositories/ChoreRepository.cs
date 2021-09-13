@@ -119,6 +119,21 @@ namespace Roomates.Repositories
                 }
             }
         }
+
+        public void AssignChore(int roomateId, int choreId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText= "UPDATE FROM Roomate SET ChoreId = @choreId Where Id = @id";
+                    cmd.Parameters.AddWithValue("@id",roomateId);
+                    cmd.Parameters.AddWithValue("@ChoreId", choreId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
                    
