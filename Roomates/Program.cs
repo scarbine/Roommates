@@ -178,7 +178,22 @@ namespace Roomates
                         Console.ReadKey();
                         break;
 
+                    case ("Delete Chore"):
+                        List<Chore> choreOptions = choreRepo.GetAll();
 
+                        foreach (Chore c in choreOptions)
+                        {
+                            Console.WriteLine($"{c.Id} - {c.Name}");
+                        }
+                        Console.WriteLine("Which chore would you like to delete?");
+                        selectedChoreId = int.Parse(Console.ReadLine());
+                        choreRepo.Delete(selectedChoreId);
+
+                        Console.WriteLine("The chore has been deleted.");
+                        Console.WriteLine("Please press any ket to continue.");
+                        Console.ReadKey();
+
+                        break;
 
 
 
